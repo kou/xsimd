@@ -514,49 +514,49 @@ namespace xsimd
         template <class A, class T, detail::enable_sized_unsigned_t<T, 1> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_u8(dst, src);
+            vst1q_u8((uint8_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_signed_t<T, 1> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_s8(dst, src);
+            vst1q_s8((int8_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_unsigned_t<T, 2> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_u16(dst, src);
+            vst1q_u16((uint16_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_signed_t<T, 2> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_s16(dst, src);
+            vst1q_s16((int16_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_unsigned_t<T, 4> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_u32(dst, src);
+            vst1q_u32((uint32_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_signed_t<T, 4> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_s32(dst, src);
+            vst1q_s32((int32_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_unsigned_t<T, 8> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_u64(dst, src);
+            vst1q_u64((uint64_t*)dst, src);
         }
 
         template <class A, class T, detail::enable_sized_signed_t<T, 8> = 0>
         inline void store_aligned(T* dst, batch<T, A> const& src, requires_arch<neon>) noexcept
         {
-            vst1q_s64(dst, src);
+            vst1q_s64((int64_t*)dst, src);
         }
 
         template <class A>
