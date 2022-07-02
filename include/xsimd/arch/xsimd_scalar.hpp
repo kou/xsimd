@@ -168,7 +168,7 @@ namespace xsimd
     inline typename std::enable_if<std::is_integral<T>::value, T>::type
     bitwise_andnot(T x, T y) noexcept
     {
-        return ~x & y;
+        return x & ~y;
     }
 
     inline float bitwise_andnot(float x, float y) noexcept

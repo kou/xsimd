@@ -67,7 +67,7 @@ public:
         std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
         std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
         value_type r;
-        ir = ~ival0 & ival1;
+        ir = ival0 & ~ival1;
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
         EXPECT_EQ(extract(xsimd::bitwise_andnot(T(val0), T(val1))), r);
     }
