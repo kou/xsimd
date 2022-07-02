@@ -80,8 +80,8 @@ namespace xsimd
      * @param y batch or scalar involved in the addition.
      * @return the sum of \c x and \c y
      */
-    template <class T, class Tp>
-    inline auto add(T const& x, Tp const& y) noexcept -> decltype(x + y)
+    template <class T, class A>
+    inline auto add(batch<T> const& x, batch<T, A> const& y) noexcept -> decltype(x + y)
     {
         return x + y;
     }

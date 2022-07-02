@@ -128,6 +128,12 @@ namespace xsimd
     }
 #endif
 
+    template <class T, class Tp>
+    inline auto add(T const& x, Tp const& y) noexcept -> decltype(x + y)
+    {
+        return x + y;
+    }
+
 #ifdef XSIMD_ENABLE_NUMPY_COMPLEX
     template <class T>
     inline bool isnan(std::complex<T> var) noexcept
