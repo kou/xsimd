@@ -32,6 +32,7 @@ namespace xsimd
 
     using std::acos;
     using std::acosh;
+    using std::arg;
     using std::asin;
     using std::asinh;
     using std::atan;
