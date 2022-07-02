@@ -211,7 +211,7 @@ public:
 };
 
 using AllSignedTypes = ::testing::Types<
-    char, signed char, short, int, long, float, double,
+    signed char, short, int, long, float, double,
     std::complex<float>, std::complex<double>
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
     ,
