@@ -9,8 +9,8 @@
  * The full license is in the file LICENSE, distributed with this software. *
  ****************************************************************************/
 
-#include "xsimd/xsimd.hpp"
 #include "xsimd/types/xsimd_utils.hpp"
+#include "xsimd/xsimd.hpp"
 #include "gtest/gtest.h"
 
 template <class T>
@@ -71,6 +71,17 @@ public:
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
         EXPECT_EQ(extract(xsimd::bitwise_andnot(T(val0), T(val1))), ir);
     }
+
+    void test_bitwise_not()
+    {
+        value_type val(1);
+        xsimd::as_integer_t<value_type> ival, ir;
+        std::memcpy((void*)&ival, (void*)&val, sizeof(val));
+        value_type r;
+        ir = ~ival;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
+        EXPECT_EQ(extract(xsimd::bitwise_not(T(val))), ir);
+    }
 };
 
 using ScalarTypes = ::testing::Types<
@@ -100,6 +111,11 @@ TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_and)
 TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_andnot)
 {
     this->test_bitwise_andnot();
+}
+
+TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_not)
+{
+    this->test_bitwise_not();
 }
 
 /*

@@ -193,6 +193,33 @@ namespace xsimd
         return r;
     }
 
+    template <class T>
+    inline typename std::enable_if<std::is_integral<T>::value, T>::type
+    bitwise_not(T x) noexcept
+    {
+        return ~x;
+    }
+
+    inline float bitwise_not(float x) noexcept
+    {
+        uint32_t ix;
+        std::memcpy((void*)&ix, (void*)&x, sizeof(float));
+        uint32_t ir = bitwise_not(ix);
+        float r;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(float));
+        return r;
+    }
+
+    inline double bitwise_not(double x) noexcept
+    {
+        uint64_t ix;
+        std::memcpy((void*)&ix, (void*)&x, sizeof(double));
+        uint64_t ir = bitwise_not(ix);
+        double r;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(double));
+        return r;
+    }
+
 #ifdef XSIMD_ENABLE_NUMPY_COMPLEX
     template <class T>
     inline bool isnan(std::complex<T> var) noexcept
