@@ -215,7 +215,7 @@ using AllSignedTypes = ::testing::Types<
     std::complex<float>, std::complex<double>
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
     ,
-    xsimd::batch<char>, xsimd::batch<signed char>, xsimd::batch<short>, xsimd::batch<int>, xsimd::batch<long>, xsimd::batch<float>, xsimd::batch<std::complex<float>>
+    xsimd::batch<signed char>, xsimd::batch<short>, xsimd::batch<int>, xsimd::batch<long>, xsimd::batch<float>, xsimd::batch<std::complex<float>>
 #if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
     ,
     xsimd::batch<double>, xsimd::batch<std::complex<double>>
