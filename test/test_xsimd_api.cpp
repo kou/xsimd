@@ -42,7 +42,7 @@ public:
     void test_bitofsign()
     {
         value_type val(1);
-        EXPECT_EQ(extract(xsimd::bitofsign(T(val))), std::signbit(val));
+        EXPECT_EQ(extract(xsimd::bitofsign(T(val))), val < 0);
     }
 };
 
