@@ -384,10 +384,10 @@ namespace xsimd
         return std::pow(t0, t1);
     }
 
-    template <class T>
-    inline auto bitofsign(T const& x) noexcept -> decltype(std::signbit(x))
+    template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
+    inline bool bitofsign(T const& x) noexcept
     {
-        return std::signbit(x);
+        return x < T(0);
     }
 
     template <class T>
