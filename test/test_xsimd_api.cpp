@@ -51,7 +51,7 @@ using ScalarTypes = ::testing::Types<
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
     ,
     xsimd::batch<char>, xsimd::batch<unsigned char>, xsimd::batch<signed char>, xsimd::batch<short>, xsimd::batch<unsigned short>, xsimd::batch<int>, xsimd::batch<unsigned int>, xsimd::batch<long>, xsimd::batch<unsigned long>, xsimd::batch<float>
-#if !defined(XSIMD_WITH_NEON) || defined(XSIMD_WITH_NEON64)
+#if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
     ,
     xsimd::batch<double>
 #endif
@@ -117,7 +117,7 @@ using FloatTypes = ::testing::Types<float, double
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
                                     ,
                                     xsimd::batch<float>
-#if !defined(XSIMD_WITH_NEON) || defined(XSIMD_WITH_NEON64)
+#if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
                                     ,
                                     xsimd::batch<double>
 #endif
@@ -181,7 +181,7 @@ using ComplexTypes = ::testing::Types<float, double, std::complex<float>, std::c
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
                                       ,
                                       xsimd::batch<float>, xsimd::batch<std::complex<float>>
-#if !defined(XSIMD_WITH_NEON) || defined(XSIMD_WITH_NEON64)
+#if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
                                       ,
                                       xsimd::batch<double>, xsimd::batch<std::complex<double>>
 #endif
@@ -216,7 +216,7 @@ using AllSignedTypes = ::testing::Types<
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
     ,
     xsimd::batch<char>, xsimd::batch<signed char>, xsimd::batch<short>, xsimd::batch<int>, xsimd::batch<long>, xsimd::batch<float>, xsimd::batch<std::complex<float>>
-#if !defined(XSIMD_WITH_NEON) || defined(XSIMD_WITH_NEON64)
+#if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
     ,
     xsimd::batch<double>, xsimd::batch<std::complex<double>>
 #endif
@@ -253,7 +253,7 @@ using AllTypes = ::testing::Types<
 #ifndef XSIMD_NO_SUPPORTED_ARCHITECTURE
     ,
     xsimd::batch<char>, xsimd::batch<unsigned char>, xsimd::batch<signed char>, xsimd::batch<short>, xsimd::batch<unsigned short>, xsimd::batch<int>, xsimd::batch<unsigned int>, xsimd::batch<long>, xsimd::batch<unsigned long>, xsimd::batch<float>, xsimd::batch<std::complex<float>>
-#if !defined(XSIMD_WITH_NEON) || defined(XSIMD_WITH_NEON64)
+#if defined(XSIMD_WITH_NEON) && !defined(XSIMD_WITH_NEON64)
     ,
     xsimd::batch<double>, xsimd::batch<std::complex<double>>
 #endif
