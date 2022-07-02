@@ -318,13 +318,11 @@ namespace xsimd
         template <class A>
         inline batch<float, A> bitwise_and(batch<float, A> const& self, batch<float, A> const& other, requires_arch<avx512f>) noexcept
         {
-            auto self_register = self.data;
-            auto other_register = other.data;
-            auto self_as_si = _mm512_castps_si512(self_register);
-            auto other_as_si = _mm512_castps_si512(other_register);
-            auto and_register =  _mm512_and_epi64(self_as_si, other_as_si);
-            auto as_float = _mm512_castsi512_ps(and_register);
-            return as_float;
+#if defined(_MSC_VER)
+            return _mm512_and_ps(self, other);
+#else
+            return _mm512_castsi512_ps(_mm512_and_si512(_mm512_castps_si512(self), _mm512_castps_si512(other)));
+#endif
         }
         template <class A>
         inline batch<double, A> bitwise_and(batch<double, A> const& self, batch<double, A> const& other, requires_arch<avx512f>) noexcept
