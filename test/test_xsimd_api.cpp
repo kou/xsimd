@@ -10,6 +10,7 @@
  ****************************************************************************/
 
 #include "xsimd/xsimd.hpp"
+#include "xsimd/types/xsimd_utils.hpp"
 #include "gtest/gtest.h"
 
 template <class T>
@@ -57,6 +58,19 @@ public:
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
         EXPECT_EQ(extract(xsimd::bitwise_and(T(val0), T(val1))), ir);
     }
+
+    void test_bitwise_andnot()
+    {
+        value_type val0(1);
+        value_type val1(3);
+        xsimd::as_integer_t<value_type> ival0, ival1, ir;
+        std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
+        std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
+        value_type r;
+        ir = ival0 & ~ival1;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
+        EXPECT_EQ(extract(xsimd::bitwise_andnot(T(val0), T(val1))), ir);
+    }
 };
 
 using ScalarTypes = ::testing::Types<
@@ -81,6 +95,11 @@ TYPED_TEST(xsimd_api_scalar_types_functions, bitofsign)
 TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_and)
 {
     this->test_bitwise_and();
+}
+
+TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_andnot)
+{
+    this->test_bitwise_andnot();
 }
 
 /*

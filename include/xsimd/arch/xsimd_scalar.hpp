@@ -147,7 +147,7 @@ namespace xsimd
         uint32_t ix, iy;
         std::memcpy((void*)&ix, (void*)&x, sizeof(float));
         std::memcpy((void*)&iy, (void*)&y, sizeof(float));
-        uint32_t ir = ix & iy;
+        uint32_t ir = bitwise_and(ix, iy);
         float r;
         std::memcpy((void*)&r, (void*)&ir, sizeof(float));
         return r;
@@ -158,11 +158,41 @@ namespace xsimd
         uint64_t ix, iy;
         std::memcpy((void*)&ix, (void*)&x, sizeof(double));
         std::memcpy((void*)&iy, (void*)&y, sizeof(double));
-        uint64_t ir = ix & iy;
+        uint64_t ir = bitwise_and(ix, iy);
         double r;
         std::memcpy((void*)&r, (void*)&ir, sizeof(double));
         return r;
     }
+
+    template <class T>
+    inline typename std::enable_if<std::is_integral<T>::value, T>::type
+    bitwise_andnot(T x, T y) noexcept
+    {
+        return x & ~y;
+    }
+
+    inline float bitwise_andnot(float x, float y) noexcept
+    {
+        uint32_t ix, iy;
+        std::memcpy((void*)&ix, (void*)&x, sizeof(float));
+        std::memcpy((void*)&iy, (void*)&y, sizeof(float));
+        uint32_t ir = bitwise_andnot(ix, iy);
+        float r;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(float));
+        return r;
+    }
+
+    inline double bitwise_andnot(double x, double y) noexcept
+    {
+        uint64_t ix, iy;
+        std::memcpy((void*)&ix, (void*)&x, sizeof(double));
+        std::memcpy((void*)&iy, (void*)&y, sizeof(double));
+        uint64_t ir = bitwise_andnot(ix, iy);
+        double r;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(double));
+        return r;
+    }
+
 #ifdef XSIMD_ENABLE_NUMPY_COMPLEX
     template <class T>
     inline bool isnan(std::complex<T> var) noexcept
