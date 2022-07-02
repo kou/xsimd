@@ -50,37 +50,37 @@ public:
     {
         value_type val0(1);
         value_type val1(3);
-        xsimd::as_integer_t<value_type> ival0, ival1, ir;
+        xsimd::as_unsigned_integer_t<value_type> ival0, ival1, ir;
         std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
         std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
         value_type r;
         ir = ival0 & ival1;
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
-        EXPECT_EQ(extract(xsimd::bitwise_and(T(val0), T(val1))), ir);
+        EXPECT_EQ(extract(xsimd::bitwise_and(T(val0), T(val1))), r);
     }
 
     void test_bitwise_andnot()
     {
         value_type val0(1);
         value_type val1(3);
-        xsimd::as_integer_t<value_type> ival0, ival1, ir;
+        xsimd::as_unsigned_integer_t<value_type> ival0, ival1, ir;
         std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
         std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
         value_type r;
-        ir = ival0 & ~ival1;
+        ir = ~ival0 & ival1;
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
-        EXPECT_EQ(extract(xsimd::bitwise_andnot(T(val0), T(val1))), ir);
+        EXPECT_EQ(extract(xsimd::bitwise_andnot(T(val0), T(val1))), r);
     }
 
     void test_bitwise_not()
     {
         value_type val(1);
-        xsimd::as_integer_t<value_type> ival, ir;
+        xsimd::as_unsigned_integer_t<value_type> ival, ir;
         std::memcpy((void*)&ival, (void*)&val, sizeof(val));
         value_type r;
         ir = ~ival;
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
-        EXPECT_EQ(extract(xsimd::bitwise_not(T(val))), ir);
+        EXPECT_EQ(extract(xsimd::bitwise_not(T(val))), r);
     }
 };
 
