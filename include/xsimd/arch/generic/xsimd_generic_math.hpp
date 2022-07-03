@@ -226,8 +226,7 @@ namespace xsimd
         template <class A, class T, class _ = typename std::enable_if<std::is_floating_point<T>::value, void>::type>
         inline batch<T, A> copysign(batch<T, A> const& self, batch<T, A> const& other, requires_arch<generic>) noexcept
         {
-            as_unsigned_integer_t<T> mask = 1ul << (8 * sizeof(mask) - 1);
-            return abs(self) | (other & bit_cast<T>(mask));
+            return abs(self) | bitofsign(other);
         }
 
         // erf
