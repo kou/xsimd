@@ -390,9 +390,9 @@ namespace xsimd
      * @ingroup batch_math
      *
      * Clips the values of the batch \c x between those of the batches \c lo and \c hi.
-     * @param x batch of floating point values.
-     * @param lo batch of floating point values.
-     * @param hi batch of floating point values.
+     * @param x batch of scalar values.
+     * @param lo batch of scalar values.
+     * @param hi batch of scalar values.
      * @return the result of the clipping.
      */
     template <class A, class T>

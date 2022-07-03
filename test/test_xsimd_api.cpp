@@ -108,6 +108,14 @@ public:
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
         EXPECT_EQ(extract(xsimd::bitwise_xor(T(val0), T(val1))), r);
     }
+
+    void test_clip()
+    {
+        value_type val0(5);
+        value_type val1(2);
+        value_type val2(3);
+        EXPECT_EQ(extract(xsimd::clip(T(val0), T(val1), T(val2))), val0 <= val1 ? val1 : (val0 >= val2 ? val2 : val0));
+    }
 };
 
 using ScalarTypes = ::testing::Types<
@@ -152,6 +160,11 @@ TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_or)
 TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_xor)
 {
     this->test_bitwise_xor();
+}
+
+TYPED_TEST(xsimd_api_scalar_types_functions, clip)
+{
+    this->test_clip();
 }
 
 /*
@@ -205,6 +218,11 @@ public:
         value_type val(8);
         EXPECT_EQ(extract(xsimd::cbrt(T(val))), std::cbrt(val));
     }
+    void test_ceil()
+    {
+        value_type val(1.5);
+        EXPECT_EQ(extract(xsimd::ceil(T(val))), std::ceil(val));
+    }
 };
 
 using FloatTypes = ::testing::Types<float, double
@@ -257,6 +275,11 @@ TYPED_TEST(xsimd_api_float_types_functions, atanh)
 TYPED_TEST(xsimd_api_float_types_functions, cbrt)
 {
     this->test_cbrt();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, ceil)
+{
+    this->test_ceil();
 }
 
 /*

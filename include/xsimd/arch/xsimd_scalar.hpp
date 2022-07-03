@@ -12,6 +12,7 @@
 #ifndef XSIMD_SCALAR_HPP
 #define XSIMD_SCALAR_HPP
 
+#include <cassert>
 #include <cmath>
 #include <complex>
 #include <cstring>
@@ -318,6 +319,7 @@ namespace xsimd
     template <typename T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
     inline T clip(const T& val, const T& low, const T& hi) noexcept
     {
+        assert(low <= hi && "ordered clipping bounds");
         return low > val ? low : (hi < val ? hi : val);
     }
 
