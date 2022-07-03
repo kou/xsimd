@@ -223,6 +223,23 @@ public:
         value_type val(1.5);
         EXPECT_EQ(extract(xsimd::ceil(T(val))), std::ceil(val));
     }
+
+    void test_copysign()
+    {
+        value_type val0(2);
+        value_type val1(-1);
+        EXPECT_EQ(extract(xsimd::copysign(T(val0), T(val1))), (value_type)std::copysign(val0, val1));
+    }
+    void test_cos()
+    {
+        value_type val(0);
+        EXPECT_EQ(extract(xsimd::cos(T(val))), std::cos(val));
+    }
+    void test_cosh()
+    {
+        value_type val(1);
+        EXPECT_EQ(extract(xsimd::cosh(T(val))), std::cosh(val));
+    }
 };
 
 using FloatTypes = ::testing::Types<float, double
@@ -282,6 +299,21 @@ TYPED_TEST(xsimd_api_float_types_functions, ceil)
     this->test_ceil();
 }
 
+TYPED_TEST(xsimd_api_float_types_functions, copysign)
+{
+    this->test_copysign();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, cos)
+{
+    this->test_cos();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, cosh)
+{
+    this->test_cosh();
+}
+
 /*
  * Functions that apply on complex and floating point types only
  */
@@ -296,6 +328,12 @@ public:
     {
         value_type val(1);
         EXPECT_EQ(extract(xsimd::arg(T(val))), std::arg(val));
+    }
+
+    void test_conj()
+    {
+        value_type val(1);
+        EXPECT_EQ(extract(xsimd::conj(T(val))), std::conj(val));
     }
 };
 
@@ -314,6 +352,11 @@ TYPED_TEST_SUITE(xsimd_api_complex_types_functions, ComplexTypes);
 TYPED_TEST(xsimd_api_complex_types_functions, arg)
 {
     this->test_arg();
+}
+
+TYPED_TEST(xsimd_api_complex_types_functions, conj)
+{
+    this->test_conj();
 }
 
 /*
