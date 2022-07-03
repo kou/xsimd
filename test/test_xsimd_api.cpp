@@ -25,10 +25,10 @@ struct scalar_type<xsimd::batch<T, A>>
 };
 
 template <class T>
-T extract(T value) { return value; }
+T extract(T const& value) { return value; }
 
 template <class T, class A>
-T extract(xsimd::batch<T, A> batch) { return batch.get(0); }
+T extract(xsimd::batch<T, A> const& batch) { return batch.get(0); }
 
 /*
  * Functions that apply on scalar types only
@@ -82,6 +82,32 @@ public:
         std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
         EXPECT_EQ(extract(xsimd::bitwise_not(T(val))), r);
     }
+
+    void test_bitwise_or()
+    {
+        value_type val0(1);
+        value_type val1(4);
+        xsimd::as_unsigned_integer_t<value_type> ival0, ival1, ir;
+        std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
+        std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
+        value_type r;
+        ir = ival0 | ival1;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
+        EXPECT_EQ(extract(xsimd::bitwise_or(T(val0), T(val1))), r);
+    }
+
+    void test_bitwise_xor()
+    {
+        value_type val0(1);
+        value_type val1(2);
+        xsimd::as_unsigned_integer_t<value_type> ival0, ival1, ir;
+        std::memcpy((void*)&ival0, (void*)&val0, sizeof(val0));
+        std::memcpy((void*)&ival1, (void*)&val1, sizeof(val1));
+        value_type r;
+        ir = ival0 ^ ival1;
+        std::memcpy((void*)&r, (void*)&ir, sizeof(ir));
+        EXPECT_EQ(extract(xsimd::bitwise_xor(T(val0), T(val1))), r);
+    }
 };
 
 using ScalarTypes = ::testing::Types<
@@ -116,6 +142,16 @@ TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_andnot)
 TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_not)
 {
     this->test_bitwise_not();
+}
+
+TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_or)
+{
+    this->test_bitwise_or();
+}
+
+TYPED_TEST(xsimd_api_scalar_types_functions, bitwise_xor)
+{
+    this->test_bitwise_xor();
 }
 
 /*
@@ -164,6 +200,11 @@ public:
         value_type val(1);
         EXPECT_EQ(extract(xsimd::atanh(T(val))), std::atanh(val));
     }
+    void test_cbrt()
+    {
+        value_type val(8);
+        EXPECT_EQ(extract(xsimd::cbrt(T(val))), std::cbrt(val));
+    }
 };
 
 using FloatTypes = ::testing::Types<float, double
@@ -211,6 +252,11 @@ TYPED_TEST(xsimd_api_float_types_functions, atan2)
 TYPED_TEST(xsimd_api_float_types_functions, atanh)
 {
     this->test_atanh();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, cbrt)
+{
+    this->test_cbrt();
 }
 
 /*
