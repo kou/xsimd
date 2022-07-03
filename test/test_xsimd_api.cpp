@@ -237,7 +237,7 @@ public:
     }
     void test_cosh()
     {
-        value_type val(1);
+        value_type val(0);
         EXPECT_EQ(extract(xsimd::cosh(T(val))), std::cosh(val));
     }
 };
