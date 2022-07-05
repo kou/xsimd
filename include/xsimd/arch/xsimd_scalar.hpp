@@ -367,7 +367,8 @@ namespace xsimd
     template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
     inline T exp10(const T& x) noexcept
     {
-        return std::exp(x * std::log(T(10)));
+        // FIXME: very inefficient
+        return std::pow(T(10), x);
     }
 
     template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
