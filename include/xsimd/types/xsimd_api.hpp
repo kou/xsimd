@@ -479,7 +479,7 @@ namespace xsimd
      * @return a boolean batch.
      */
     template <class T, class A>
-    inline batch_bool<T, A> eq(batch<T, A> const& x, batch<T, A> const& y) noexcept
+    inline auto eq(batch<T, A> const& x, batch<T, A> const& y) noexcept -> decltype(x == y)
     {
         return x == y;
     }

@@ -30,6 +30,9 @@ T extract(T const& value) { return value; }
 template <class T, class A>
 T extract(xsimd::batch<T, A> const& batch) { return batch.get(0); }
 
+template <class T, class A>
+bool extract(xsimd::batch_bool<T, A> const& batch) { return batch.get(0); }
+
 /*
  * Functions that apply on scalar types only
  */
@@ -240,6 +243,26 @@ public:
         value_type val(0);
         EXPECT_EQ(extract(xsimd::cosh(T(val))), std::cosh(val));
     }
+    void test_exp()
+    {
+        value_type val(2);
+        EXPECT_EQ(extract(xsimd::exp(T(val))), std::exp(val));
+    }
+    void test_exp10()
+    {
+        value_type val(2);
+        EXPECT_EQ(extract(xsimd::exp10(T(val))), std::pow(value_type(10), val));
+    }
+    void test_exp2()
+    {
+        value_type val(2);
+        EXPECT_EQ(extract(xsimd::exp2(T(val))), std::exp2(val));
+    }
+    void test_expm1()
+    {
+        value_type val(2);
+        EXPECT_EQ(extract(xsimd::expm1(T(val))), std::expm1(val));
+    }
 };
 
 using FloatTypes = ::testing::Types<float, double
@@ -312,6 +335,26 @@ TYPED_TEST(xsimd_api_float_types_functions, cos)
 TYPED_TEST(xsimd_api_float_types_functions, cosh)
 {
     this->test_cosh();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, exp)
+{
+    this->test_exp();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, exp10)
+{
+    this->test_exp10();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, exp2)
+{
+    this->test_exp2();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, expm1)
+{
+    this->test_expm1();
 }
 
 /*
@@ -410,6 +453,20 @@ public:
         value_type val1(3);
         EXPECT_EQ(extract(xsimd::add(T(val0), T(val1))), val0 + val1);
     }
+
+    void test_div()
+    {
+        value_type val0(1);
+        value_type val1(3);
+        EXPECT_EQ(extract(xsimd::div(T(val0), T(val1))), val0 / val1);
+    }
+
+    void test_eq()
+    {
+        value_type val0(1);
+        value_type val1(3);
+        EXPECT_EQ(extract(xsimd::eq(T(val0), T(val1))), val0 == val1);
+    }
 };
 
 using AllTypes = ::testing::Types<
@@ -429,4 +486,14 @@ TYPED_TEST_SUITE(xsimd_api_all_types_functions, AllTypes);
 TYPED_TEST(xsimd_api_all_types_functions, add)
 {
     this->test_add();
+}
+
+TYPED_TEST(xsimd_api_all_types_functions, div)
+{
+    this->test_div();
+}
+
+TYPED_TEST(xsimd_api_all_types_functions, eq)
+{
+    this->test_eq();
 }

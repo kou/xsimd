@@ -342,10 +342,32 @@ namespace xsimd
     }
 
     template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
+    inline bool eq(const T& x0, const T& x1) noexcept
+    {
+        return x0 == x1;
+    }
+
+    template <class T>
+    inline bool eq(const std::complex<T>& x0, const std::complex<T>& x1) noexcept
+    {
+        return x0 == x1;
+    }
+
+#ifdef _GNU_SOURCE
+    inline float exp10(const float& x) noexcept
+    {
+        return ::exp10f(x);
+    }
+    inline double exp10(const double& x) noexcept
+    {
+        return ::exp10(x);
+    }
+#endif
+
+    template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
     inline T exp10(const T& x) noexcept
     {
-        // FIXME: faster alternatives exist
-        return std::pow(T(10), x);
+        return std::exp(x * std::log(T(10)));
     }
 
     template <class T, class = typename std::enable_if<std::is_scalar<T>::value>::type>
