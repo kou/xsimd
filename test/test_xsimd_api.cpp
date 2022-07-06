@@ -268,6 +268,11 @@ public:
         value_type val(2);
         EXPECT_EQ(extract(xsimd::erf(T(val))), std::erf(val));
     }
+    void test_erfc()
+    {
+        value_type val(0);
+        EXPECT_NEAR(extract(xsimd::erfc(T(val))), std::erfc(val), 10e-7);
+    }
 };
 
 using FloatTypes = ::testing::Types<float, double
@@ -365,6 +370,11 @@ TYPED_TEST(xsimd_api_float_types_functions, expm1)
 TYPED_TEST(xsimd_api_float_types_functions, erf)
 {
     this->test_erf();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, erfc)
+{
+    this->test_erfc();
 }
 
 /*
