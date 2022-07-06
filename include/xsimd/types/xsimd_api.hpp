@@ -464,8 +464,8 @@ namespace xsimd
      * @param y scalar or batch of scalars
      * @return the result of the division.
      */
-    template <class T, class Tp>
-    inline auto div(T const& x, Tp const& y) noexcept -> decltype(x / y)
+    template <class T, class Tp, class A>
+    inline auto div(batch<T, A> const& x, batch<Tp, A> const& y) noexcept -> decltype(x / y)
     {
         return x / y;
     }
