@@ -565,13 +565,23 @@ namespace xsimd
     /**
      * @ingroup batch_math_extra
      *
-     * Evaluate polynomial with coefficient \c Coefs on point \c x using estrin
+     * Compile-time constant holder for \c estrin
+     */
+    template <uint64_t... Coefs>
+    struct coefs
+    {
+    };
+
+    /**
+     * @ingroup batch_math_extra
+     *
+     * Evaluate polynomial with coefficient \c Coefs... on point \c x using estrin
      * method.
      * @param x batch of floating point values.
-     * @return the evaluation ofpolynomial with coefficient \c Coefs on point \c x.
+     * @return the evaluation of polynomial with coefficient \c Coefs on point \c x.
      */
     template <class T, class A, uint64_t... Coefs>
-    inline batch<T, A> estrin(const batch<T, A>& x) noexcept
+    inline batch<T, A> estrin(const batch<T, A>& x, coefs<Coefs...> const&) noexcept
     {
         return kernel::estrin<T, A, Coefs...>(x);
     }
@@ -597,7 +607,7 @@ namespace xsimd
      *
      * Computes the absolute values of each scalar in the batch \c x.
      * @param x batch floating point values.
-     * @return the asbolute values of \c x.
+     * @return the absolute values of \c x.
      */
     template <class T, class A>
     inline batch<T, A> fabs(batch<T, A> const& x) noexcept

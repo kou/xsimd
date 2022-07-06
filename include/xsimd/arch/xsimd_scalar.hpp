@@ -359,6 +359,16 @@ namespace xsimd
         return x0 == x1;
     }
 
+    template <uint64_t... Coefs>
+    struct coefs;
+
+    template <class T, uint64_t... Coefs, class = typename std::enable_if<std::is_scalar<T>::value>::type>
+    inline T estrin(const T& x, coefs<Coefs...> const&) noexcept
+    {
+        // TODO: implement his
+        return {};
+    }
+
 #ifdef _GNU_SOURCE
     inline float exp10(const float& x) noexcept
     {

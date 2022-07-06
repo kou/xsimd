@@ -270,8 +270,14 @@ public:
     }
     void test_erfc()
     {
+        // FIXME: can we do better?
         value_type val(0);
         EXPECT_NEAR(extract(xsimd::erfc(T(val))), std::erfc(val), 10e-7);
+    }
+    void test_fabs()
+    {
+        value_type val(-3);
+        EXPECT_EQ(extract(xsimd::fabs(T(val))), std::abs(val));
     }
 };
 
@@ -375,6 +381,11 @@ TYPED_TEST(xsimd_api_float_types_functions, erf)
 TYPED_TEST(xsimd_api_float_types_functions, erfc)
 {
     this->test_erfc();
+}
+
+TYPED_TEST(xsimd_api_float_types_functions, fabs)
+{
+    this->test_fabs();
 }
 
 /*
@@ -487,6 +498,13 @@ public:
         value_type val1(3);
         EXPECT_EQ(extract(xsimd::eq(T(val0), T(val1))), val0 == val1);
     }
+
+    void test_estrin()
+    {
+        value_type val(2);
+        // TODO: implement scalar version
+        // EXPECT_EQ(extract(xsimd::estrin(T(val), xsimd::coefs<3, 0, 1>())), val0 == val1);
+    }
 };
 
 using AllTypes = ::testing::Types<
@@ -516,4 +534,9 @@ TYPED_TEST(xsimd_api_all_types_functions, div)
 TYPED_TEST(xsimd_api_all_types_functions, eq)
 {
     this->test_eq();
+}
+
+TYPED_TEST(xsimd_api_all_types_functions, estrin)
+{
+    this->test_estrin();
 }
